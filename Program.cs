@@ -1,52 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace MiniGames
 {
-
     class Program
     {
-        public static void userAttempt(ref int userAttemptNumber)
+        enum userChoiseMainMenu
         {
-            if (!int.TryParse(Console.ReadLine(), out userAttemptNumber))
-            {
-                Console.WriteLine("You didn't enter a number in-between 0...100. Try again.");
-                userAttempt(ref userAttemptNumber);
-            }
+            ExitMiniGames = 1,
+            GuessTheNumberGame = 2,
+            //SnakeGame = 3
         }
         static void Main(string[] args)
         {
-            Random randomizer = new Random();
-            int winNum = randomizer.Next(0, 100);
-            bool winCase = false;
-            int userAttemptNumber = 0;
-            Console.WriteLine("Gues the number in-between 0...100!");
+            bool stopgame = false;
 
-            do
+            while(stopgame == false)
             {
-                userAttempt(ref userAttemptNumber);
+                ShowPage.MainMenu();
 
-                if (userAttemptNumber > winNum)
+                int userChoise;
+                if (int.TryParse(Console.ReadLine(), out userChoise))
                 {
-                    Console.WriteLine("Too high! Guess lower...");
-                }
-                else if (userAttemptNumber < winNum)
-                {
-                    Console.WriteLine("Too low! Guess higher...");
-                }
-                else if (userAttemptNumber == winNum)
-                {
-                    Console.WriteLine("YOU WIN!!!");
-                    winCase = true;
-                }
-            } while (winCase == false);
 
-            Console.WriteLine("Thank you for playing the game.");
-            Console.WriteLine("Press any key to finish...");
-            Console.ReadKey();
+                    switch ((userChoiseMainMenu)userChoise)
+                    {
+                        case userChoiseMainMenu.ExitMiniGames:
+                            ShowPage.GoodByePage();
+                            Thread.Sleep(2000);
+                            stopgame = true;
+                            break;
+
+                        case userChoiseMainMenu.GuessTheNumberGame:
+                            ShowPage.GuessTheNumberPage();
+                            GuessTheNumberGame game = new GuessTheNumberGame();
+                            game.RunGame();
+                            break;
+                        //case userChoiseMainMenu.SnakeGame:
+
+                        //    break;
+                    }
+                }
+            }
         }
     }
 }
