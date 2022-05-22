@@ -5,24 +5,27 @@ namespace MiniGames
 {
     class Program
     {
+        
         enum userChoiseMainMenu
         {
             ExitMiniGames = 1,
             GuessTheNumberGame = 2,
-            //SnakeGame = 3
+            SnakeGame = 3,
+            //TODO: packman
+            //PacMan = 4
         }
-        static void Main(string[] args)
+        static void Main()
         {
+            Console.Title = "MiniGames";
             bool stopgame = false;
 
-            while(stopgame == false)
+            while (stopgame == false)
             {
                 ShowPage.MainMenu();
 
                 int userChoise;
                 if (int.TryParse(Console.ReadLine(), out userChoise))
                 {
-
                     switch ((userChoiseMainMenu)userChoise)
                     {
                         case userChoiseMainMenu.ExitMiniGames:
@@ -33,10 +36,14 @@ namespace MiniGames
 
                         case userChoiseMainMenu.GuessTheNumberGame:
                             ShowPage.GuessTheNumberPage();
-                            GuessTheNumberGame game = new GuessTheNumberGame();
-                            game.RunGame();
+                            GuessTheNumberGame.RunGame();
                             break;
-                        //case userChoiseMainMenu.SnakeGame:
+                        case userChoiseMainMenu.SnakeGame:
+                            ShowPage.SnakePage();
+                            SnakeGame.RunGame();
+                            break;
+                        //TODO: packman
+                        //case userChoiseMainMenu.PacMan:
 
                         //    break;
                     }

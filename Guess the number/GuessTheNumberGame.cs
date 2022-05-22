@@ -8,12 +8,12 @@ namespace MiniGames
 {
     class GuessTheNumberGame
     {
-        Random randomizer = new Random();
-        private int winNum;
-        private bool winCase;
-        private int userAttemptNumber = 0;
+        static Random randomizer = new Random();
+        static private int winNum;
+        static private bool winCase;
+        static private int userAttemptNumber = 0;
 
-        public void RunGame()
+        static public void RunGame()
         {
             ResetSettings();
             //Main game loop
@@ -51,7 +51,7 @@ namespace MiniGames
             Console.ReadKey();
         }
         //Method for handling an attempt to guess a number
-        private void userAttempt(ref int userAttemptNumber)
+        static private void userAttempt(ref int userAttemptNumber)
         {
             if (!int.TryParse(Console.ReadLine(), out userAttemptNumber))
             {
@@ -60,7 +60,7 @@ namespace MiniGames
             }
         }
         //Method for rsetting main fields
-        private void ResetSettings()
+        static private void ResetSettings()
         {
            winCase = false;
            winNum = randomizer.Next(0, 100);
